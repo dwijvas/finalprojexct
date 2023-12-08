@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/LoginScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MessageMe',
       theme: ThemeData.dark(),
-      home: LoginScreen(),
+      home: const LoginScreen(),
     );
   }
 }
