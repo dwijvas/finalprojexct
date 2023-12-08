@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MessageMe',
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      theme: ThemeData.dark(),
+      home: LoginScreen(),
     );
   }
 }
