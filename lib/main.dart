@@ -1,3 +1,4 @@
+import 'package:finalprojexct/screens/SignupScreen.dart';
 import 'package:flutter/material.dart';
 import 'screens/LoginScreen.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'MessageMe',
       theme: ThemeData.dark(),
-      home: const LoginScreen(),
+      home: const SignupScreen(),
     );
   }
 }
