@@ -114,7 +114,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "My Posts",
+                  "",
                   style: TextStyle(color: Colors.grey[500]),
                 ),
               ),
