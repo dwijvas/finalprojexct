@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
             ),
 
             //profile
-            DrawerTile(icon: Icons.person, text: 'My Profile', onTap: onTapProfile,),
+            DrawerTile(icon: Icons.person, text: 'User Settings', onTap: onTapProfile,),
 
           ],
 
