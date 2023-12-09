@@ -61,8 +61,8 @@ class _TextPostState extends State<TextPost> {
           color: Colors.black,
           borderRadius: BorderRadius.circular(7),
       ),
-      margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-      padding: EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      padding: const EdgeInsets.all(20),
       child: Row(
         children: [
           Column(
@@ -77,7 +77,7 @@ class _TextPostState extends State<TextPost> {
 
               Text(
                   widget.likes.length.toString(),
-                  style: TextStyle(color: Colors.grey),
+                  style: const TextStyle(color: Colors.grey),
               )
             ],
           ),
@@ -86,7 +86,7 @@ class _TextPostState extends State<TextPost> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(widget.user,
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
               ),
               const SizedBox(height: 8,),
               Text(widget.msg),

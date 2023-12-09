@@ -41,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: Colors.black26,
       appBar: AppBar(
-        title: Text("MessageMe"),
+        title: const Text("MessageMe"),
         actions: [
           //logout
-          IconButton(onPressed: logout, icon: Icon(Icons.logout),
+          IconButton(onPressed: logout, icon: const Icon(Icons.logout),
           )
         ],
       ),
