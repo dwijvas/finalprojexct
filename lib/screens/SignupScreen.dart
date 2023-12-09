@@ -1,10 +1,12 @@
 import 'package:finalprojexct/components/button.dart';
 import 'package:finalprojexct/components/textfields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SignupScreen extends StatefulWidget {
   final Function()? onTap;
   const SignupScreen({super.key, required this.onTap});
+
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -15,6 +17,39 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
   final TextEditingController confirmPwController = TextEditingController();
+
+
+  //signup method
+  void signup() async{
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    if (pwController.text != confirmPwController.text) {
+      Navigator.pop(context);
+      displayErrorMessage("Password Does Not Match");
+    }
+    try{
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text,
+        password: pwController.text,
+      );
+      if (context.mounted) Navigator.pop(context);
+    }on FirebaseAuthException catch (e) {
+      displayErrorMessage(e.code);
+    }
+  }
+  void displayErrorMessage(String msg){
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(msg),
+        )
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +119,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 // sign in button
                 MyButton(
                   text: "Sign Up",
-                  onTap: (){},
+                  onTap: signup,
                 ),
 
                 const SizedBox(height: 25),

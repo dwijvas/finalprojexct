@@ -18,20 +18,24 @@ class _LoginScreenState extends State<LoginScreen> {
 
   //logging the user in
   void login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text,
-      password: passwordController.text,
-    );
-    showDialog(
-      context: context,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-
-
+    try{
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (context.mounted) Navigator.pop(context);
+    }on FirebaseAuthException catch (e) {
+      displayErrorMessage(e.code);
+    }
   }
-
+  void displayErrorMessage(String msg){
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(msg),
+        )
+    );
+  }
 
     @override
   Widget build(BuildContext context) {
