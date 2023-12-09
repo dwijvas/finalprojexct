@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojexct/components/drawer.dart';
 import 'package:finalprojexct/components/textfields.dart';
+import 'package:finalprojexct/help/helpermethod.dart';
 import 'package:finalprojexct/screens/ProfileScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           user: post['UserEmail'],
                           postID: post.id,
                           likes: List<String>.from(post['Likes'] ?? []),
+                          time: formatData(post['TimeStamp']),
                       );
                       },
                     );
