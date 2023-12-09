@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojexct/components/button.dart';
 import 'package:finalprojexct/components/textfields.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,7 +14,6 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController pwController = TextEditingController();
   final TextEditingController confirmPwController = TextEditingController();
@@ -32,10 +32,18 @@ class _SignupScreenState extends State<SignupScreen> {
       displayErrorMessage("Password Does Not Match");
     }
     try{
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      UserCredential userCredential= await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text,
         password: pwController.text,
       );
+
+      //storing user data in Firestore
+      FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email!)
+      .set({
+        'username' : emailController.text.split('@')[0],
+        'bio' : 'Enter a Bio...'
+      });
+
       if (context.mounted) Navigator.pop(context);
     }on FirebaseAuthException catch (e) {
       displayErrorMessage(e.code);
@@ -80,14 +88,6 @@ class _SignupScreenState extends State<SignupScreen> {
 
                 const SizedBox(height: 50),
 
-                // userNameController textfield
-                MyTextField(
-                  controller: userNameController,
-                  hintText: "Enter Username...",
-                  obscureText: false,
-                ),
-
-                const SizedBox(height: 10),
 
                 // email textfield
                 MyTextField(

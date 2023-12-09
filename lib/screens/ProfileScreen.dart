@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojexct/components/textdata.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -27,52 +28,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: Text("My Profile"),
         backgroundColor: Colors.black54,
       ),
-      body: ListView(
-        children: [
-          const SizedBox(height: 45,),
-          //profile icon
-          const Icon(Icons.person, size: 64,),
+      body: StreamBuilder<DocumentSnapshot> (
+        stream: FirebaseFirestore.instance.collection("Users").doc(currentUser.email).snapshots(),
+        builder: (context, snapshot){
+        if(snapshot.hasData) {
+          final userData = snapshot.data!.data() as Map<String, dynamic>;
+          return ListView(
+            children: [
+              const SizedBox(height: 45,),
+              //profile icon
+              const Icon(Icons.person, size: 64,),
 
-          const SizedBox(height: 8,),
+              const SizedBox(height: 8,),
 
-          //email
-          Text(
-            currentUser.email!,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
+              //email
+              Text(
+                currentUser.email!,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
 
-          //details
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-                "My Details",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
+              //details
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "My Details",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
 
-          //username
-          UserBox(section: 'Username', text: 'Dwij', onPressed: () => editField('Username') ,),
-          //bio
-          UserBox(section: 'Bio', text: 'Hello', onPressed: () => editField('Bio') ,),
+              //username
+              UserBox(
+                section: 'Username',
+                text: userData['username'],
+                onPressed: () => editField('username') ,
+              ),
+              //bio
+              UserBox(section: 'Bio', text: userData['bio'], onPressed: () => editField('bio') ,),
 
-          const SizedBox(height: 45,),
+              const SizedBox(height: 45,),
+              //your posts
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "My Posts",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
 
-          //your posts
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              "My Posts",
-              style: TextStyle(color: Colors.white),
-            ),
-          ),
+          );
 
+        }else if (snapshot.hasError){
+          return Center(child: Text('Error${snapshot.error}'),
+          );
+        }
+        return const Center(child: CircularProgressIndicator(),
+        );
 
+    }
 
-        ],
-      ),
+    ),
     );
   }
 }
