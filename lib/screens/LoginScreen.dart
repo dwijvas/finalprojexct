@@ -23,8 +23,11 @@ class _LoginScreenState extends State<LoginScreen> {
         email: emailController.text,
         password: passwordController.text,
       );
-      if (context.mounted) Navigator.pop(context);
+      if (Navigator.of(context).canPop()) {
+        Navigator.pop(context);
+      }
     }on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
       displayErrorMessage(e.code);
     }
   }

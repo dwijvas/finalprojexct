@@ -67,6 +67,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       return TextPost(
                           msg: post['PostMessage'],
                           user: post['UserEmail'],
+                          postID: post.id,
+                          likes: List<String>.from(post['Likes'] ?? []),
                       );
                       },
                     );
