@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojexct/components/drawer.dart';
 import 'package:finalprojexct/components/textfields.dart';
 import 'package:finalprojexct/help/helpermethod.dart';
+import 'package:finalprojexct/screens/ChatScreens.dart';
 import 'package:finalprojexct/screens/ProfileScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,12 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen(),));
   }
 
+  //chatmethod
+  void openChat(){
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) =>  ChatScreen(receiverUserName: currentUser.email!, receiverUserID: currentUser.uid),));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       drawer: AppDrawer(
         onTapLogout: logout,
         onTapProfile: openProfile,
+        onTapChat: openChat,
       ),
       body: Center(
         child: Column(

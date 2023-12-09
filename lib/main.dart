@@ -1,4 +1,5 @@
 import 'package:finalprojexct/screens/SignupScreen.dart';
+import 'package:finalprojexct/screens/Splash.dart';
 import 'package:finalprojexct/screens/authentication.dart';
 import 'package:finalprojexct/screens/opening.dart';
 import 'package:finalprojexct/themes/darkmode.dart';
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
       title: 'MessageMe',
       theme: lightTheme,
       darkTheme: darkTheme,
-      home: const AuthScreen(),
+      home: const SplashScreen(), // Set the splash screen as the home
+
     );
   }
 }

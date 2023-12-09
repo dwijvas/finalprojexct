@@ -40,6 +40,7 @@ class _SignupScreenState extends State<SignupScreen> {
       //storing user data in Firestore
       FirebaseFirestore.instance.collection("Users").doc(userCredential.user!.email!)
       .set({
+        'uid' : userCredential.user!.uid,
         'username' : emailController.text.split('@')[0],
         'bio' : 'Enter a Bio...'
       });

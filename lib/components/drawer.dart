@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 class AppDrawer extends StatelessWidget {
   final void Function()? onTapProfile;
   final void Function()? onTapLogout;
-  const AppDrawer({super.key, required this.onTapLogout, required this.onTapProfile,});
+  final void Function()? onTapChat;
+  const AppDrawer({super.key, required this.onTapLogout, required this.onTapProfile,required this.onTapChat});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +29,8 @@ class AppDrawer extends StatelessWidget {
               text: 'Home',
               onTap: () => Navigator.pop(context),
             ),
+            //chat
+            DrawerTile(icon: Icons.chat, text: 'Messenger', onTap: onTapChat,),
 
             //profile
             DrawerTile(icon: Icons.person, text: 'User Settings', onTap: onTapProfile,),
@@ -35,6 +38,9 @@ class AppDrawer extends StatelessWidget {
           ],
 
           ),
+
+
+
 
           //logout
           Padding(
