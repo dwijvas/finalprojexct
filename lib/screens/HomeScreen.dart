@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalprojexct/components/drawer.dart';
 import 'package:finalprojexct/components/textfields.dart';
+import 'package:finalprojexct/screens/ProfileScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:finalprojexct/components/textpost.dart';
@@ -36,17 +38,23 @@ class _HomeScreenState extends State<HomeScreen> {
   //curretn user
   final currentUser = FirebaseAuth.instance.currentUser!;
 
+  //profile page method
+  void openProfile() {
+    Navigator.pop(context);
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen(),));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Colors.black54,
       appBar: AppBar(
         title: Text("MessageMe"),
-        actions: [
-          //logout
-          IconButton(onPressed: logout, icon: Icon(Icons.logout),
-          )
-        ],
+      ),
+
+      drawer: AppDrawer(
+        onTapLogout: logout,
+        onTapProfile: openProfile,
       ),
       body: Center(
         child: Column(

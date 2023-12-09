@@ -58,7 +58,7 @@ class _TextPostState extends State<TextPost> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.black,
+          color: Colors.black87,
           borderRadius: BorderRadius.circular(7),
       ),
       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
