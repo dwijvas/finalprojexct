@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:finalprojexct/components/chat_bubble.dart';
 import 'package:finalprojexct/components/textfields.dart';
 import 'package:finalprojexct/services/chat/chat_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -77,7 +78,7 @@ class _ChatScreenState extends State<ChatScreen>{
             CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Text(data['senderEmail']),
-            Text(data['message']),
+            ChatBubble(message: data['message']),
           ],
         ),
       );
