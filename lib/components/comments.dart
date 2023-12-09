@@ -10,7 +10,7 @@ class Comments extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
+        color: Theme.of(context).colorScheme.secondary,
         borderRadius: BorderRadius.circular(8),
 
       ),
@@ -30,19 +30,19 @@ class Comments extends StatelessWidget {
               Text(
                 time,
                 style: TextStyle(
-                    color: Colors.white54,
+                    color: Colors.grey[500],
                     fontSize: 12),
               ),
               Text(
                 ' • ',
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey[500],
                     fontSize: 12),
               ),
               Text(
                 user,
                 style: TextStyle(
-                    color: Colors.white24,
+                    color: Colors.grey[500],
                     fontSize: 12),
               ),
             ],

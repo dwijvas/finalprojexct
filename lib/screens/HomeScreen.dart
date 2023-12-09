@@ -48,10 +48,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black38,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text("MessageMe"),
-        backgroundColor: Colors.black54,
       ),
 
       drawer: AppDrawer(

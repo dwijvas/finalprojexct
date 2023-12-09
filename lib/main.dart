@@ -1,6 +1,8 @@
 import 'package:finalprojexct/screens/SignupScreen.dart';
 import 'package:finalprojexct/screens/authentication.dart';
 import 'package:finalprojexct/screens/opening.dart';
+import 'package:finalprojexct/themes/darkmode.dart';
+import 'package:finalprojexct/themes/lightmode.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -23,7 +25,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'MessageMe',
-      theme: ThemeData.dark(),
+      theme: lightTheme,
+      darkTheme: darkTheme,
       home: const AuthScreen(),
     );
   }

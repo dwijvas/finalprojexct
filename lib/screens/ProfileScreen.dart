@@ -24,10 +24,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: Text("Edit " + field),
               content: TextField(
                 autofocus: true,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.grey[400]),
                 decoration: InputDecoration(
                   hintText: "Enter new $field",
-                      hintStyle: TextStyle(color: Colors.grey),
+                      hintStyle: TextStyle(color: Colors.grey[400]),
                 ),
                 onChanged: (value){
                   newValue = value;
@@ -37,13 +37,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 //cancel
                 TextButton(
                     onPressed: () => Navigator.pop(context),
-                    child: Text('Cancel', style: TextStyle(color: Colors.white),),
+                    child: Text('Cancel', style: TextStyle(color: Colors.grey[400]),),
                 ),
 
                 //save
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(newValue),
-                  child: Text('Save', style: TextStyle(color: Colors.white),),
+                  child: Text('Save', style: TextStyle(color: Colors.grey[400]),),
                 ),
 
               ],
@@ -61,10 +61,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor: Colors.white10,
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         title: Text("My Profile"),
-        backgroundColor: Colors.black54,
       ),
       body: StreamBuilder<DocumentSnapshot> (
         stream: FirebaseFirestore.instance.collection("Users").doc(currentUser.email).snapshots(),
@@ -84,7 +83,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 currentUser.email!,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: Colors.grey[500],
                 ),
               ),
 
@@ -93,7 +92,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "My Details",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.grey[500]),
                 ),
               ),
 
@@ -116,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   "My Posts",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.grey[500]),
                 ),
               ),
             ],

@@ -103,7 +103,7 @@ class _TextPostState extends State<TextPost> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.black87,
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(7),
       ),
       margin: EdgeInsets.only(top: 20, left: 20, right: 20),
@@ -121,19 +121,19 @@ class _TextPostState extends State<TextPost> {
                   Text(
                     widget.time,
                     style: TextStyle(
-                        color: Colors.white54,
+                        color: Colors.grey[500],
                         fontSize: 12),
                   ),
                   Text(
                     ' • ',
                     style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.grey[500],
                         fontSize: 12),
                   ),
                   Text(
                     widget.user,
                     style: TextStyle(
-                        color: Colors.white24,
+                        color: Colors.grey[500],
                         fontSize: 12),
                   ),
                 ],
