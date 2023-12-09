@@ -1,5 +1,6 @@
 import 'package:finalprojexct/components/button.dart';
 import 'package:finalprojexct/components/textfields.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -15,7 +16,24 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  @override
+  //logging the user in
+  void login() async {
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: emailController.text,
+      password: passwordController.text,
+    );
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+
+  }
+
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black26,
@@ -66,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
               //login button
               MyButton(
                 text: "Login",
-                onTap: (){}
+                onTap: login,
               ),
 
               const SizedBox(height: 20),
@@ -80,11 +98,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(width: 8),
                   GestureDetector(
-                    onTap: (){},
+                    onTap: widget.onTap,
                     child: const Text(
                       "Please Sign Up Here",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        color: Colors.blue,
                       ),
                     ),
                   ),
