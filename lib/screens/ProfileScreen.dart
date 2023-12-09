@@ -13,9 +13,47 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
 
   final currentUser = FirebaseAuth.instance.currentUser!;
-
+  final usersCollection = FirebaseFirestore.instance.collection("Users");
   //editing username
+
   Future<void> editField(String field) async {
+    String newValue = "";
+        await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text("Edit " + field),
+              content: TextField(
+                autofocus: true,
+                style: TextStyle(color: Colors.white),
+                decoration: InputDecoration(
+                  hintText: "Enter new $field",
+                      hintStyle: TextStyle(color: Colors.grey),
+                ),
+                onChanged: (value){
+                  newValue = value;
+                },
+              ),
+              actions: [
+                //cancel
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text('Cancel', style: TextStyle(color: Colors.white),),
+                ),
+
+                //save
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(newValue),
+                  child: Text('Save', style: TextStyle(color: Colors.white),),
+                ),
+
+              ],
+            ),
+        );
+        //update firestore
+    if(newValue.trim().length>0){
+      await usersCollection.doc(currentUser.email).update({field: newValue});
+
+    }
 
   }
 
@@ -63,10 +101,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               UserBox(
                 section: 'Username',
                 text: userData['username'],
-                onPressed: () => editField('username') ,
+                onPressed: () => editField('username'),
               ),
               //bio
-              UserBox(section: 'Bio', text: userData['bio'], onPressed: () => editField('bio') ,),
+              UserBox(
+                section: 'Bio',
+                text: userData['bio'],
+                onPressed: () => editField('bio') ,
+              ),
 
               const SizedBox(height: 45,),
               //your posts

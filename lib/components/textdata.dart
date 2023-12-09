@@ -27,7 +27,7 @@ class UserBox extends StatelessWidget {
               ),
 
               //edit
-              IconButton(onPressed: (){}, icon: Icon(Icons.edit, color: Colors.grey,),
+              IconButton(onPressed: onPressed, icon: Icon(Icons.edit, color: Colors.grey,),
               )
             ],
           ),
