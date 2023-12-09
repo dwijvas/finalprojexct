@@ -2,6 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:finalprojexct/components/commentButton.dart';
 import 'package:finalprojexct/components/comments.dart';
+import 'package:finalprojexct/components/delete.dart';
 import 'package:finalprojexct/components/likebutton.dart';
 import 'package:finalprojexct/help/helpermethod.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -97,7 +98,36 @@ class _TextPostState extends State<TextPost> {
     ),);
   }
 
+  //delete method
 
+  void deletePost() {
+    showDialog(context: context, builder: (context) => AlertDialog(
+      title: const Text("Delete"),
+      content: const Text("Are you sure you want to delete this post?"),
+      actions: [
+        //cancel
+        TextButton(onPressed: () => Navigator.pop(context), child: const Text("Cancel"),),
+
+        //confirm
+        TextButton(
+          onPressed: () async {
+            final commentDocs = await FirebaseFirestore.instance.collection("Users").doc(widget.postID).collection("Comments").get();
+            for (var doc in commentDocs.docs){
+              await FirebaseFirestore.instance.collection("Posts").doc(widget.postID).collection("Comments").doc(doc.id).delete();
+              
+              
+            }
+            
+            FirebaseFirestore.instance.collection("Posts").doc(widget.postID).delete().then((value) => print("Post succesfully deleted")).catchError((error) => print("Failed to delete post: $error"));
+            Navigator.pop(context);
+
+
+          },
+          child: const Text("Delete"),),
+
+      ],
+    ),);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,33 +143,45 @@ class _TextPostState extends State<TextPost> {
         children: [
 
           const SizedBox(width: 20),
-          Column(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+
+              //post
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    widget.time,
-                    style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 12),
+                  Row(
+                    children: [
+                      Text(
+                        widget.time,
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 12),
+                      ),
+                      Text(
+                        ' • ',
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 12),
+                      ),
+                      Text(
+                        widget.user,
+                        style: TextStyle(
+                            color: Colors.grey[500],
+                            fontSize: 12),
+                      ),
+                    ],
                   ),
-                  Text(
-                    ' • ',
-                    style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 12),
-                  ),
-                  Text(
-                    widget.user,
-                    style: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 12),
-                  ),
+                  const SizedBox(height: 8,),
+                  Text(widget.msg),
                 ],
               ),
-              const SizedBox(height: 8,),
-              Text(widget.msg),
+              //delete buttoin
+
+              if(widget.user == currentUser.email)
+                DeleteButton(onTap: deletePost),
             ],
           ),
 
